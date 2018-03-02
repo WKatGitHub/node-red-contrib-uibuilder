@@ -10,6 +10,7 @@
   ],
   "main": "none",
   "scripts": {
+    "prepare": "uglifyjs ./nodes/src/uibuilderfe.js --output ./nodes/src/uibuilderfe.min.js --compress --mangle",
     "build": "webpack",
     "push": "git push origin",
     "pack": "uglifyjs ./nodes/src/uibuilderfe.js --output ./nodes/src/uibuilderfe.min.js --compress --mangle",
