@@ -2,6 +2,8 @@ v1.0.7-security
 
 Testing security ideas and code. This is a separate branch to master.
 
+- **CHANGED** Added new config input fields for 
+
 v1.0.7
 
 - **CHANGED** Undo use of `RED.settings.get()` for properties in `settings.js` as this is apparently not correct. See [Node-RED issue #1543](https://github.com/node-red/node-red/issues/1543) for details.

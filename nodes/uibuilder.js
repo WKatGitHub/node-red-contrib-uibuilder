@@ -202,31 +202,31 @@ module.exports = function(RED) {
         }
 
         // If we are using JWT Security - validate the token
-        // if (node.jwtSecurity) {
-        //     // Define Socket.IO security using JWT if required
-        //     io.use(function(socket, next){
-        //         /* Some SIO related info that might be useful in security checks
-        //             //console.log('--socket.request.connection.remoteAddress--')
-        //             //console.dir(socket.request.connection.remoteAddress)
-        //             //console.log('--socket.handshake.address--')
-        //             //console.dir(socket.handshake.address)
-        //             //console.dir(io.sockets.connected)
-        //         */
+            // if (node.jwtSecurity) {
+            //     // Define Socket.IO security using JWT if required
+            //     io.use(function(socket, next){
+            //         /* Some SIO related info that might be useful in security checks
+            //             //console.log('--socket.request.connection.remoteAddress--')
+            //             //console.dir(socket.request.connection.remoteAddress)
+            //             //console.log('--socket.handshake.address--')
+            //             //console.dir(socket.handshake.address)
+            //             //console.dir(io.sockets.connected)
+            //         */
 
-        //         // Validate if JWT is passed
-        //         jwt.verify(socket.handshake.query.auth_token, node.jwtSecret, function(err, decoded) {
-        //             log.verbose('nodeGo:socketSecurity - JWT Security middleware called. Socket ID: ' + socket.id, socket.handshake.query.auth_token, decoded, err )
-        //             if (err || new Date().getTime() > decoded.exp) {
-        //                 Error.prototype.socketId
-        //                 const myErr = new Error()
-        //                 myErr.name = 'Token Authentication error'
-        //                 myErr.socketId = socket.id
-        //                 return next(err)
-        //             } else {
-        //                 return next()
-        //             }
-        //         })
-        //     })
+            //         // Validate if JWT is passed
+            //         jwt.verify(socket.handshake.query.auth_token, node.jwtSecret, function(err, decoded) {
+            //             log.verbose('nodeGo:socketSecurity - JWT Security middleware called. Socket ID: ' + socket.id, socket.handshake.query.auth_token, decoded, err )
+            //             if (err || new Date().getTime() > decoded.exp) {
+            //                 Error.prototype.socketId
+            //                 const myErr = new Error()
+            //                 myErr.name = 'Token Authentication error'
+            //                 myErr.socketId = socket.id
+            //                 return next(err)
+            //             } else {
+            //                 return next()
+            //             }
+            //         })
+            //     })
         // } else {
             io.use(function(socket, next){
                 // Check that all incoming SocketIO data has the IO cookie
@@ -272,8 +272,8 @@ module.exports = function(RED) {
         else deployments[node.id] = 1
         log.debug(  'deployments', deployments[node.id] )
 
-        // We need an http server to serve the page
-        const app = RED.httpNode || RED.httpAdmin
+        // We need an http server to serve the page - @since 2018-01-15 v1.0.7-security don't try to use httpAdmin
+        const app = RED.httpNode // || RED.httpAdmin
 
         /** Provide the ability to have a ExpressJS middleware hook.
          * This can be used for custom authentication/authorisation or anything else.
@@ -363,6 +363,8 @@ module.exports = function(RED) {
             // Local custom folders are not right!
             log.error( 'uibuilder wanted to use local front-end folders in ', node.customFolder, ' but could not')
         }
+
+        // TODO: ??? Add 'setHeaders' to serveStatic and pass token/auth if required ???
 
         //#region Add static path for local custom files
         // TODO: need a build capability for dist - nb probably keep vendor and private code separate

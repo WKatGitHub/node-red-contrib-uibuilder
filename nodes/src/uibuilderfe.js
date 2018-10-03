@@ -420,10 +420,13 @@ if (typeof require !== 'undefined'  &&  typeof io === 'undefined') {
 
         self.events = {}  // placeholder for event listener callbacks by property name
 
-        // Add event listener for JWT
+        // Add event listener for JWT - fires on `uibuilder.set('auth_token', token)`
         self.events.auth_token = function() {
-            self.socket.query = 'auth_token=' + self.auth_token
-            self.socket.io.opts.query = 'auth_token=' + self.auth_token
+            // Adds the token to the sockets query parameters
+            if ( self.auth_token ) {
+                self.socket.query = 'auth_token=' + self.auth_token
+                self.socket.io.opts.query = 'auth_token=' + self.auth_token
+            }
         }
 
         /** Trigger event listener for a given property
