@@ -66,6 +66,7 @@
   ],
   "directories": {
     "bin": "./bin",
+    "mergehtml": "./bin/mergehtml",
     "example": "./nodes/examples"
   },
   "main": "./nodes/src/uibuilderfe.js"

@@ -127,7 +127,7 @@ if (typeof require !== 'undefined'  &&  typeof io === 'undefined') {
             var type = arguments[0]
 
             //console[type](...args)
-            console[type].apply(undefined, [].slice.call(arguments, 1))
+            console[type].apply(console, [].slice.call(arguments, 1))
 
         } // --- End of debug function --- //
 
